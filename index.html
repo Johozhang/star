@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>天逸</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="css/swiper.min.css">
+  <link rel="stylesheet" href="css/animate.css">
+  <link rel="stylesheet" href="css/star.css">
+  
+</head>
+<body>
+  <div class="star-header">
+    <img class="logo-text" src="img/logo_text.png">
+    <img class="logo-img" src="img/logo.png">
+  </div>
+  <div class="star-title">
+    <h1>给你满满安全感</h1>
+    <p>SUV天逸350THP时尚型在第11期C-NCAP测试中获得总分XX分，荣获五星安全评价结果。</p>
+  </div>
+  <div class="star-car">
+    <img src="img/car1.png">
+  </div>
+  <div class="star-wrap">
+    <div class="star-box">
+      <div class="anchor1">
+        <div class="anchor-text">太空舱高强度车身</div>
+        <div class="anchor"></div> 
+      </div>
+      <div class="anchor2">
+      <div class="anchor-text">AEBS2主动紧急刹车</br>系统带前部碰撞预警</div>
+        <div class="anchor"></div>    
+      </div>
+      <div class="anchor3">
+        <div class="anchor-text">ABSD主动盲点监测系统</div>
+        <div class="anchor"></div>
+      </div>
+      <div class="anchor4">
+        <div class="anchor"></div>
+        <div class="anchor-text">LKA车道保持辅助系统</div>
+      </div>
+      <div class="anchor5">
+        <div class="anchor"></div>
+        <div class="anchor-text">HDC陡坡缓降</div>
+      </div>
+      <img class="big-star" id="star" src="img/star1.png" alt="star1">
+      <div class="hand animated pulse" id="hand">
+        <img src="img/hand.png">
+        <p>点亮小圆点</p>
+      </div>
+      <img class="small-star small-star1" src="img/star.png">
+      <img class="small-star small-star2" src="img/star.png">
+      <img class="small-star small-star3" src="img/star.png">
+      <img class="small-star small-star4" src="img/star.png">
+    </div>
+    <div class="star-button" id="next_btn">预约试驾</div>
+  </div>
+  
+	<div class="swiper-container" id="swiper-wrap">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="img/P12.jpg"></div>
+      <div class="swiper-slide"><img src="img/P13.jpg"></div>
+      <div class="swiper-slide"><img src="img/P16.jpg"></div>
+      <div class="swiper-slide"><img src="img/P17.jpg"></div>
+      <div class="swiper-slide"><img src="img/P18.jpg"></div>
+    </div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="close-btn" id="close_btn"><img src="img/close.png"></div>
+  </div>
+
+</body>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/swiper.min.js"></script>
+<script>
+  var swiper = new Swiper('.swiper-container', {
+    loop: true,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
+  $(function(){
+    $("#close_btn").on("click",function(event) {
+      $("#swiper-wrap").hide();
+    })
+    $(".anchor").on("click",function(event) {
+      var index = $(this).index(".anchor");
+      swiper.slideTo(index+1,0,false);
+      $(this).css({
+        "box-shadow":"0px 0px 1rem 0.2rem #fff"
+      });
+      $(this).addClass('active');
+      $(this).parent().find(".anchor-text").fadeIn();
+      var num = 0;
+      for (var i = 0; i < $(".anchor").length; i++) {
+        if ($($(".anchor")[i]).hasClass('active')) {
+            num++;
+        }   
+      }
+      if (num==5) {
+        $("#star").attr("src","img/star2.png");
+        $("#next_btn").show();
+        $(".small-star").show();
+        $("#hand").hide();
+        $("#swiper-wrap").fadeIn();
+        swiper.update()
+      }
+    });
+    /*按屏幕修改根文本尺寸*/
+    var setRootFont=function(){
+      var ww=$(document.body).width();
+      ww=ww>1024?1024:ww;
+      var f=Math.floor(ww/ 24);
+      $("html").css("font-size",f+"px");
+      $("body").css("font-size",f+"px");
+      console.log("RFS:"+f+"  ("+$("body").width()+"x"+$("body").height()+")");
+    };
+    setRootFont();
+    $(window).resize(function(){setRootFont();});
+  });
+</script>
+</html>
